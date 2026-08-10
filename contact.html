@@ -23,10 +23,62 @@
         
         /* Contact Grid */
         .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
-        .contact-card { background-color: #bacbfe; padding: 50px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 220px; }
+        .contact-card { background-color: #bacbfe; padding: 50px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 220px; border-radius: 8px; }
         .contact-icon { width: 50px; height: 50px; margin-bottom: 30px; object-fit: contain; }
-        .contact-card p { color: #0033a0; font-weight: bold; font-size: 15px; margin: 0; }
+        .contact-card p { color: #0033a0; font-weight: bold; font-size: 15px; margin: 0; word-break: break-all; }
         .contact-card .serif-font { font-size: 16px; }
+
+        /* =========================================
+           RESPONSIVE DESIGN (Media Queries)
+           ========================================= */
+
+        /* Tablet Layout (Lebar layar maksimal 900px) */
+        @media screen and (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr); /* Ubah menjadi 2 kolom */
+            }
+            .header, .footer {
+                padding: 25px 40px;
+            }
+            .main-content {
+                padding: 50px 40px;
+            }
+        }
+
+        /* Mobile Layout (Lebar layar maksimal 600px) */
+        @media screen and (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+            .nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .nav a {
+                margin-left: 0; /* Hapus margin kiri agar menu rapi di tengah */
+            }
+            .main-content {
+                padding: 40px 20px; /* Kurangi padding utama */
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 30px;
+                text-align: center; /* Posisikan judul di tengah untuk HP */
+            }
+            .contact-grid {
+                grid-template-columns: 1fr; /* Ubah menjadi 1 kolom (menumpuk ke bawah) */
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                padding: 30px 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -46,25 +98,21 @@
         <div class="contact-grid">
             <!-- Instagram -->
             <div class="contact-card">
-                <!-- GANTI src DENGAN ICON INSTAGRAM (warna putih transparan) -->
                 <img src="FOTO\instagram.png" alt="Instagram" class="contact-icon">
                 <p class="serif-font">@bdryh.ibrhm_</p>
             </div>
             <!-- WhatsApp -->
             <div class="contact-card">
-                <!-- GANTI src DENGAN ICON WHATSAPP -->
                 <img src="FOTO\whatsapp.png" alt="WhatsApp" class="contact-icon">
                 <p class="serif-font">+62 823-2211-3967</p>
             </div>
             <!-- Email -->
             <div class="contact-card">
-                <!-- GANTI src DENGAN ICON EMAIL -->
                 <img src="FOTO\email.png" alt="Email" class="contact-icon">
                 <p class="serif-font">bdryh.ibrhm21@gmail.com</p>
             </div>
             <!-- LinkedIn -->
             <div class="contact-card">
-                <!-- GANTI src DENGAN ICON LINKEDIN -->
                 <img src="FOTO\linked.png" alt="LinkedIn" class="contact-icon">
                 <p class="serif-font">Badriyah Ibrahim</p>
             </div>
