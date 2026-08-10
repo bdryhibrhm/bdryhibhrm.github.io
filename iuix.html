@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Skill UI/UX Design</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .serif-font { font-family: 'Times New Roman', Times, serif; }
+        
+        /* Header & Footer */
+        .header, .footer { background-color: #3b3b3b; color: white; padding: 25px 80px; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo, .footer .logo { font-size: 28px; letter-spacing: 2px; }
+        .nav a { color: #ddd; text-decoration: none; margin-left: 30px; font-size: 14px; }
+        .nav a.active { color: #5c85d6; border-bottom: 2px solid #5c85d6; padding-bottom: 5px; }
+        .footer { background-color: #111; font-size: 14px; color: #aaa; padding: 40px 80px; margin-top: 0;}
+        
+        /* Main Layout */
+        .main-content { background-color: #fff; padding: 60px 80px; }
+        .page-title { color: #0033a0; font-size: 48px; margin-bottom: 60px; font-weight: normal; }
+        
+        /* Rows Setup */
+        .project-row { display: flex; gap: 50px; margin-bottom: 80px; align-items: center; }
+        
+        /* Content boxes */
+        .image-box { flex: 1.2; }
+        .image-box img { width: 100%; height: auto; display: block; object-fit: contain; }
+        
+        .text-box { flex: 1; padding: 20px; }
+        .text-box h2 { color: #b0c4de; font-size: 32px; margin-bottom: 20px; font-weight: normal; }
+        .text-box p { color: #0033a0; font-size: 16px; line-height: 1.6; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="#" class="active">Skills</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h1 class="page-title serif-font">UI/UX Design</h1>
+        
+        <!-- Project 1: Trauma Center (Teks Kiri, Gambar Kanan) -->
+        <div class="project-row">
+            <div class="text-box">
+                <h2 class="serif-font">Trauma Center</h2>
+                <p>Mendesain antarmuka aplikasi dan website monitoring yang mempermudah identifikasi triase pasien, sehingga tenaga medis di IGD dapat bekerja lebih cepat, terorganisir, dan siap dalam menangani pasien sesuai tingkat prioritas.</p>
+            </div>
+            <div class="image-box">
+                <!-- GANTI src DENGAN GAMBAR MOCKUP TRAUMA CENTER -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\trauma center.png" alt="Mockup UI/UX Trauma Center">
+            </div>
+        </div>
+
+        <!-- Project 2: Olasehat (Gambar Kiri, Teks Kanan) -->
+        <div class="project-row">
+            <div class="image-box">
+                <!-- GANTI src DENGAN GAMBAR MOCKUP OLASEHAT -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\olasehat.png" alt="Mockup UI/UX Olasehat">
+            </div>
+            <div class="text-box">
+                <h2 class="serif-font">Olasehat</h2>
+                <p>Merancang UI/UX web admin dan aplikasi Olasehat yang menyediakan tantangan olahraga, panduan latihan yang tepat, serta fitur konsultasi dengan tenaga profesional untuk mendukung gaya hidup sehat pengguna.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <div>© 2026 Portfolio. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>

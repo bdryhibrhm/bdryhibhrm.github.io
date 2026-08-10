@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Home</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .serif-font { font-family: 'Times New Roman', Times, serif; }
+        
+        /* Header & Footer */
+        .header, .footer { background-color: #2b2b2b; color: white; padding: 25px 80px; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo, .footer .logo { font-size: 28px; letter-spacing: 2px; }
+        .nav a { color: #aaa; text-decoration: none; margin-left: 30px; font-size: 14px; font-weight: 500; }
+        .nav a.active { color: #3b5998; border-bottom: 2px solid #3b5998; padding-bottom: 5px; }
+        .footer { margin-top: 80px; font-size: 14px; color: #999; }
+        
+        /* Main Layout */
+        .main-content { background-image: radial-gradient(#d1d5db 2px, transparent 2px); background-size: 35px 35px; min-height: 100vh; padding: 60px 80px; background-color: #fafafa; }
+        .container { max-width: 1100px; margin: 0 auto; background: white; padding: 60px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        
+        /* Hero Section */
+        .hero-title { text-align: center; font-size: 70px; margin-bottom: 80px; color: #b0c4de; font-weight: normal; }
+        .hero-title span { color: #1e3a8a; font-style: italic; font-weight: bold; }
+        
+        /* About Section */
+        .about-section { display: flex; gap: 50px; margin-bottom: 80px; align-items: flex-start; }
+        .about-image { width: 350px; height: 450px; background-color: #eee; object-fit: cover; }
+        .about-text { flex: 1; }
+        .about-text h2 { color: #1e3a8a; font-size: 36px; margin-bottom: 20px; font-weight: normal; }
+        .about-text p { color: #8899b6; font-size: 16px; line-height: 1.6; margin-bottom: 40px; }
+        
+        /* Timeline */
+        .timeline { display: flex; justify-content: space-between; position: relative; margin-top: 60px; }
+        .timeline::before { content: ''; position: absolute; top: 8px; left: 0; right: 0; height: 2px; background-color: #b0c4de; z-index: 1; }
+        .timeline-item { text-align: center; position: relative; z-index: 2; width: 30%; }
+        .timeline-dot { width: 18px; height: 18px; background-color: #b0c4de; border-radius: 50%; margin: 0 auto 15px auto; }
+        .timeline-item p { font-size: 12px; color: #1e3a8a; margin: 0; }
+        
+        /* Skills Section */
+        .skills-title { color: #1e3a8a; font-size: 28px; margin-bottom: 30px; font-weight: normal; }
+        .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .skill-card { background-color: #f5f7ff; padding: 40px 20px; text-align: center; border-radius: 4px; display: flex; flex-direction: column; align-items: center; }
+        .skill-icon { width: 60px; height: 60px; background-color: #ddd; border-radius: 50%; margin-bottom: 20px; object-fit: contain; }
+        .skill-card h3 { color: #1e3a8a; margin-bottom: 15px; font-size: 18px; }
+        .skill-card p { color: #8899b6; font-size: 13px; margin-bottom: 20px; flex-grow: 1; }
+        .skill-card a { color: #b0c4de; text-decoration: none; font-size: 12px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <nav class="nav">
+            <a href="#" class="active">Home</a>
+            <a href="#">Skills</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            <h1 class="hero-title serif-font">Portfolio & <span>Resume</span></h1>
+
+            <div class="about-section">
+                <!-- GANTI src DI BAWAH DENGAN FOTO PROFIL ANDA -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\saya.jpeg" alt="Foto Profil" class="about-image">
+                <div class="about-text">
+                    <h2 class="serif-font">Hi, I'm Badriyah</h2>
+                    <p>mahasiswa yang memiliki minat di bidang desain dan teknologi. Selama perkuliahan, saya telah mengerjakan berbagai proyek, seperti desain feed Instagram, desain UI/UX, pengembangan front-end website, serta proyek Internet of Things (IoT).</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <p>Madrasah Tsanawiyah<br>Negeri 1 Luwu Timur</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <p>Ilmu Pengetahuan Alam<br>Madrasah Aliyah Darunnajah Timampu</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <p>Teknik Informatika dan Komputer<br>Politeknik Negeri Ujung Pandang</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="skills-title serif-font">Skill and Software</h2>
+            <div class="skills-grid">
+                <!-- Skill 1 -->
+                <div class="skill-card">
+                    <!-- GANTI src DENGAN LOGO CANVA -->
+                    <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\canva.png" alt="Canva" class="skill-icon">
+                    <h3 class="serif-font">Canva</h3>
+                    <p>Membuat Feed Instagram dan story Instagram.</p>
+                    <a href="instagram.html">View Projects</a>
+                </div>
+                <!-- Skill 2 -->
+                <div class="skill-card">
+                    <!-- GANTI src DENGAN LOGO FIGMA -->
+                    <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\figma.png" alt="Figma" class="skill-icon">
+                    <h3 class="serif-font">Figma</h3>
+                    <p>Membuat Desain UI/UX dan Prototype yang Interaktif.</p>
+                    <a href="iuix.html">View Projects</a>
+                </div>
+                <!-- Skill 3 -->
+                <div class="skill-card">
+                    <!-- GANTI src DENGAN LOGO VS CODE -->
+                    <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\vscode.png" alt="VS Code" class="skill-icon">
+                    <h3 class="serif-font">VS Code</h3>
+                    <p>Mengerjakan Membuat Tampilan depan (Front-end) Website.</p>
+                    <a href="frontend.html">View Projects</a>
+                </div>
+                <!-- Skill 4 -->
+                <div class="skill-card">
+                    <!-- GANTI src DENGAN LOGO ARDUINO -->
+                    <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\arduino.png" alt="Arduino IDE" class="skill-icon">
+                    <h3 class="serif-font">Arduino IDE</h3>
+                    <p>Membuat Perancangan Sistem dan Merakit Alat</p>
+                    <a href="iot.html">View Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <div>© 2026 Portfolio. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>

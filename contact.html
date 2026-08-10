@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Contact</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .serif-font { font-family: 'Times New Roman', Times, serif; }
+        
+        /* Header & Footer */
+        .header, .footer { background-color: #3b3b3b; color: white; padding: 25px 80px; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo, .footer .logo { font-size: 28px; letter-spacing: 2px; }
+        .nav a { color: #ddd; text-decoration: none; margin-left: 30px; font-size: 14px; }
+        .nav a.active { color: #5c85d6; border-bottom: 2px solid #5c85d6; padding-bottom: 5px; }
+        .footer { background-color: #1a1a1a; margin-top: 0; font-size: 14px; color: #aaa; padding: 40px 80px;}
+        
+        /* Main Layout */
+        .main-content { background-image: radial-gradient(#e5e7eb 2px, transparent 2px); background-size: 35px 35px; min-height: 70vh; padding: 80px; background-color: #fff; }
+        
+        /* Title */
+        .page-title { color: #0033a0; font-size: 36px; margin-bottom: 60px; font-weight: normal; }
+        
+        /* Contact Grid */
+        .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .contact-card { background-color: #bacbfe; padding: 50px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 220px; }
+        .contact-icon { width: 50px; height: 50px; margin-bottom: 30px; object-fit: contain; }
+        .contact-card p { color: #0033a0; font-weight: bold; font-size: 15px; margin: 0; }
+        .contact-card .serif-font { font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="instagram.html">Skills</a>
+            <a href="#" class="active">Contact</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h1 class="page-title serif-font">Contact Person</h1>
+        
+        <div class="contact-grid">
+            <!-- Instagram -->
+            <div class="contact-card">
+                <!-- GANTI src DENGAN ICON INSTAGRAM (warna putih transparan) -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\instagram.png" alt="Instagram" class="contact-icon">
+                <p class="serif-font">@bdryh.ibrhm_</p>
+            </div>
+            <!-- WhatsApp -->
+            <div class="contact-card">
+                <!-- GANTI src DENGAN ICON WHATSAPP -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\whatsapp.png" alt="WhatsApp" class="contact-icon">
+                <p class="serif-font">+62 823-2211-3967</p>
+            </div>
+            <!-- Email -->
+            <div class="contact-card">
+                <!-- GANTI src DENGAN ICON EMAIL -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\email.png" alt="Email" class="contact-icon">
+                <p class="serif-font">bdryh.ibrhm21@gmail.com</p>
+            </div>
+            <!-- LinkedIn -->
+            <div class="contact-card">
+                <!-- GANTI src DENGAN ICON LINKEDIN -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\linked.png" alt="LinkedIn" class="contact-icon">
+                <p class="serif-font">Badriyah Ibrahim</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <div>© 2026 Portfolio. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>

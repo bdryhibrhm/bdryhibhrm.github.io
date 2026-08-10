@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Skill Instagram Feed</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .serif-font { font-family: 'Times New Roman', Times, serif; }
+        
+        /* Header & Footer */
+        .header, .footer { background-color: #3b3b3b; color: white; padding: 25px 80px; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo, .footer .logo { font-size: 28px; letter-spacing: 2px; }
+        .nav a { color: #ddd; text-decoration: none; margin-left: 30px; font-size: 14px; }
+        .nav a.active { color: #5c85d6; border-bottom: 2px solid #5c85d6; padding-bottom: 5px; }
+        .footer { background-color: #111; font-size: 14px; color: #aaa; padding: 40px 80px; margin-top: 0;}
+        
+        /* Main Layout */
+        .main-content { background-color: #fff; padding: 60px 80px; }
+        .page-title { text-align: center; color: #b0c4de; font-size: 48px; margin-bottom: 60px; font-weight: normal; }
+        
+        /* Rows Setup */
+        .project-row { display: flex; gap: 40px; margin-bottom: 80px; align-items: center; }
+        .project-row.reverse { flex-direction: row-reverse; }
+        
+        /* Content boxes */
+        .image-box { flex: 1; }
+        .image-box img { width: 100%; height: auto; display: block; object-fit: cover; background: #eee; }
+        
+        .text-box { flex: 1; padding: 20px; }
+        .text-box h2 { color: #0033a0; font-size: 28px; margin-bottom: 15px; font-weight: normal; }
+        .text-box p { color: #9bb0db; font-size: 16px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="#" class="active">Skills</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h1 class="page-title serif-font">Instagram Feed Design</h1>
+        
+        <!-- Project 1 -->
+        <div class="project-row">
+            <div class="image-box">
+                <!-- GANTI src DENGAN GAMBAR GRID INSTAGRAM PERTAMA ANDA -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\ig tmj.png" alt="Feed Instagram tmjpnup">
+            </div>
+            <div class="text-box">
+                <h2 class="serif-font">Feed Instagram @tmjpnup.ofc</h2>
+                <p>Merancang desain feed Instagram yang menarik dan konsisten sebagai media promosi program studi, dengan tujuan meningkatkan engagement akun serta menyampaikan informasi kepada mahasiswa dan calon mahasiswa secara efektif.</p>
+            </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-row reverse">
+            <div class="image-box">
+                <!-- GANTI src DENGAN GAMBAR GRID INSTAGRAM KEDUA ANDA -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\ig umkm.png" alt="Feed Instagram modernn.muse">
+            </div>
+            <div class="text-box">
+                <h2 class="serif-font">Feed Instagram @modernn.muse_</h2>
+                <p>Mengembangkan konten visual berupa feed dan Instagram Story untuk mendukung strategi promosi UMKM thrift yang baru berdiri, sehingga produk lebih menarik, mudah dikenali, dan mampu menjangkau lebih banyak calon pelanggan.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <div>© 2026 Portfolio. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>

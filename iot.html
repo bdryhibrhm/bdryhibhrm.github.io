@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Skill IoT</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .serif-font { font-family: 'Times New Roman', Times, serif; }
+        
+        /* Header & Footer */
+        .header, .footer { background-color: #3b3b3b; color: white; padding: 25px 80px; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo, .footer .logo { font-size: 28px; letter-spacing: 2px; }
+        .nav a { color: #ddd; text-decoration: none; margin-left: 30px; font-size: 14px; }
+        .nav a.active { color: #5c85d6; border-bottom: 2px solid #5c85d6; padding-bottom: 5px; }
+        .footer { background-color: #111; font-size: 14px; color: #aaa; padding: 40px 80px; margin-top: 0;}
+        
+        /* Main Layout */
+        .main-content { background-color: #fff; padding: 60px 80px; }
+        .page-title { color: #0033a0; font-size: 44px; margin-bottom: 40px; font-weight: normal; }
+        
+        /* Project Rows */
+        .iot-row { display: flex; margin-bottom: 40px; align-items: stretch; }
+        
+        .image-area { flex: 1; display: flex; }
+        .image-area img { width: 100%; height: 100%; object-fit: cover; display: block; background: #eee; }
+        
+        /* Custom Styling Box / Cards for Texts */
+        .text-area { flex: 1; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; }
+        
+        .bg-light-blue { background-color: #a7bcf7; color: white; }
+        .bg-light-blue h2 { color: #002b80; }
+        
+        .bg-dark-blue { background-color: #10368c; color: white; }
+        .bg-dark-blue h2 { color: #a7bcf7; }
+        
+        .text-area h2 { font-size: 26px; margin-bottom: 20px; font-weight: normal; }
+        .text-area p { font-size: 15px; line-height: 1.6; }
+        .bg-light-blue p { color: #f0f4ff; }
+        .bg-dark-blue p { color: #e0e8ff; }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="#" class="active">Skills</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h1 class="page-title serif-font">Internet of Things</h1>
+        
+        <!-- Row 1 -->
+        <div class="iot-row">
+            <div class="image-area">
+                <!-- GANTI src DENGAN GAMBAR ALAT IOT 1 -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\IoT.png" alt="Alat Pengukur Volume Air">
+            </div>
+            <div class="text-area bg-light-blue">
+                <h2 class="serif-font">Sistem Pengukur Volume Air Pada Hidroponik Guna Mendeteksi Kebocoran Pipa</h2>
+                <p>Mengembangkan alat untuk memantau volume air yang masuk dan keluar pada sistem hidroponik guna mendeteksi potensi kebocoran pipa. Sistem ini membantu meminimalisir pemborosan air nutrisi serta menjaga efisiensi penggunaan air pada instalasi hidroponik.</p>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="iot-row">
+            <div class="text-area bg-dark-blue">
+                <h2 class="serif-font">Sistem Pendeteksi Tangisan Bayi Bebasis ESP32</h2>
+                <p>Mengembangkan front-end website pencatatan peminjaman ruangan Program Studi TMJ untuk mempermudah kepala laboratorium dalam mengelola data peminjaman, memantau ketersediaan ruangan, dan meningkatkan efisiensi proses administrasi.</p>
+            </div>
+            <div class="image-area">
+                <!-- GANTI src DENGAN GAMBAR ALAT IOT 2 -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\iot 2.png" alt="Alat Pendeteksi Bayi">
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="iot-row">
+            <div class="image-area" style="border-left: 2px solid #ccc; padding-left: 20px; flex: 0.6;">
+                <!-- GANTI src DENGAN GAMBAR ALAT IOT 3 -->
+                <img src="D:\Kuliah\Semester 7\Portofolio\Web\FOTO\embended.png" alt="Alat Pendeteksi Gas" style="height: auto;">
+            </div>
+            <div class="text-area bg-light-blue" style="flex: 1.4;">
+                <h2 class="serif-font">Alat Pendeteksi Kebocoran Gas Menggunakan Arduino Uno</h2>
+                <p>Mengembangkan alat pendeteksi kebocoran gas yang dirancang untuk meningkatkan keamanan pada rumah tangga, UMKM Kuliner, serta proses distribusi tabung gas dengan memberikan peringatan dini ketika terdeteksi adanya kebocoran.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="logo serif-font">PORTFOLIO</div>
+        <div>© 2026 Portfolio. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>
