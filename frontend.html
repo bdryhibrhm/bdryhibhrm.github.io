@@ -27,6 +27,41 @@
         /* Right Image Section */
         .image-section { flex: 1.2; }
         .portfolio-img { width: 100%; height: auto; object-fit: contain; background-color: #f5f7ff; padding: 20px; border-radius: 8px; }
+
+        /* =========================================
+           RESPONSIVE DESIGN (Media Queries)
+           ========================================= */
+
+        /* Tablet Layout (Lebar layar maksimal 950px) */
+        @media screen and (max-width: 950px) {
+            .header, .footer { padding: 25px 40px; }
+            .main-content { 
+                padding: 50px 40px; 
+                flex-direction: column; /* Mengubah susunan teks dan gambar menjadi atas-bawah */
+                text-align: center; /* Membuat teks berada di tengah */
+                gap: 40px;
+            }
+            .main-title { font-size: 50px; margin-bottom: 20px; }
+            .sub-title { font-size: 26px; margin-bottom: 20px; }
+            .image-section { width: 100%; } /* Memastikan gambar menyesuaikan lebar layar */
+        }
+
+        /* Mobile Layout (Lebar layar maksimal 600px) */
+        @media screen and (max-width: 600px) {
+            .header { flex-direction: column; gap: 15px; padding: 20px; }
+            .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .nav a { margin-left: 0; }
+            
+            .main-content { padding: 40px 20px; gap: 30px; }
+            
+            .main-title { font-size: 40px; } /* Mengecilkan ukuran teks judul untuk HP */
+            .sub-title { font-size: 22px; }
+            .description { font-size: 15px; text-align: justify; /* Supaya teks deskripsi rapi di HP */ }
+            
+            .portfolio-img { padding: 10px; } /* Kurangi jarak padding di dalam box gambar */
+
+            .footer { flex-direction: column; text-align: center; gap: 10px; padding: 30px 20px; }
+        }
     </style>
 </head>
 <body>
