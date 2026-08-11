@@ -23,19 +23,76 @@
         .project-row { display: flex; gap: 40px; margin-bottom: 80px; align-items: center; }
         .project-row.reverse { flex-direction: row-reverse; }
         
-        /* Content boxes */
         .image-box { flex: 1; }
-        .image-box img { width: 100%; height: auto; display: block; object-fit: cover; background: #eee; border-radius: 8px; }
-        
         .text-box { flex: 1; padding: 20px; }
         .text-box h2 { color: #0033a0; font-size: 28px; margin-bottom: 15px; font-weight: normal; }
         .text-box p { color: #9bb0db; font-size: 16px; line-height: 1.6; }
 
         /* =========================================
-           RESPONSIVE DESIGN (Media Queries)
+           CAROUSEL (SLIDER GAMBAR) CSS
            ========================================= */
+        .carousel {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #eee;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-inner img {
+            width: 100%;
+            height: auto;
+            flex-shrink: 0;
+            display: block;
+            object-fit: cover;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: background-color 0.3s;
+        }
+        .carousel-btn:hover { background-color: rgba(0, 0, 0, 0.8); }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
 
-        /* Tablet Layout (Lebar layar maksimal 950px) */
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .dot.active, .dot:hover { background-color: white; }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+           ========================================= */
         @media screen and (max-width: 950px) {
             .header, .footer { padding: 25px 40px; }
             .main-content { padding: 50px 40px; }
@@ -43,26 +100,19 @@
             .project-row { gap: 20px; margin-bottom: 60px; }
         }
 
-        /* Mobile Layout (Lebar layar maksimal 600px) */
         @media screen and (max-width: 600px) {
             .header { flex-direction: column; gap: 15px; padding: 20px; }
             .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
             .nav a { margin-left: 0; }
-            
             .main-content { padding: 30px 20px; }
             .page-title { font-size: 32px; margin-bottom: 40px; }
-            
-            /* Ubah baris proyek menjadi tumpukan kolom (atas-bawah) */
             .project-row { flex-direction: column; gap: 20px; margin-bottom: 50px; text-align: center; }
-            
-            /* Penting: Batalkan gaya zig-zag/reverse untuk HP agar selalu Gambar di atas, Teks di bawah */
             .project-row.reverse { flex-direction: column; }
-            
             .text-box { padding: 0 10px; }
             .text-box h2 { font-size: 24px; }
-            .text-box p { font-size: 15px; text-align: justify; } /* Teks dibuat rata kiri-kanan agar rapi */
-            
+            .text-box p { font-size: 15px; text-align: justify; }
             .footer { flex-direction: column; text-align: center; gap: 10px; padding: 30px 20px; }
+            .carousel-btn { width: 30px; height: 30px; font-size: 14px; } /* Tombol lebih kecil di HP */
         }
     </style>
 </head>
@@ -83,8 +133,24 @@
         <!-- Project 1 -->
         <div class="project-row">
             <div class="image-box">
-                <!-- GANTI src DENGAN GAMBAR GRID INSTAGRAM PERTAMA ANDA -->
-                <img src="FOTO\ig tmj.png" alt="Feed Instagram tmjpnup">
+                <!-- Carousel TMJ -->
+                <div class="carousel" id="carousel-tmj">
+                    <div class="carousel-inner">
+                        <!-- Tambahkan foto-foto TMJ di sini -->
+                        <img src="FOTO\ig tmj.png" alt="Feed 1">
+                        <img src="FOTO\ig tmj_2.png" alt="Feed 2"> 
+                        <img src="FOTO\ig tmj_3.png" alt="Feed 3">
+                    </div>
+                    <!-- Tombol Geser -->
+                    <button class="carousel-btn prev" onclick="moveSlide('carousel-tmj', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('carousel-tmj', 1)">&#10095;</button>
+                    <!-- Titik Navigasi (Dots) -->
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="setSlide('carousel-tmj', 0)"></span>
+                        <span class="dot" onclick="setSlide('carousel-tmj', 1)"></span>
+                        <span class="dot" onclick="setSlide('carousel-tmj', 2)"></span>
+                    </div>
+                </div>
             </div>
             <div class="text-box">
                 <h2 class="serif-font">Feed Instagram @tmjpnup.ofc</h2>
@@ -95,8 +161,24 @@
         <!-- Project 2 -->
         <div class="project-row reverse">
             <div class="image-box">
-                <!-- GANTI src DENGAN GAMBAR GRID INSTAGRAM KEDUA ANDA -->
-                <img src="FOTO\ig umkm.png" alt="Feed Instagram modernn.muse">
+                <!-- Carousel UMKM -->
+                <div class="carousel" id="carousel-umkm">
+                    <div class="carousel-inner">
+                        <!-- Tambahkan foto-foto UMKM di sini -->
+                        <img src="FOTO\ig umkm.png" alt="Feed 1">
+                        <img src="FOTO\ig umkm_2.png" alt="Feed 2">
+                        <img src="FOTO\ig umkm_3.png" alt="Feed 3">
+                    </div>
+                    <!-- Tombol Geser -->
+                    <button class="carousel-btn prev" onclick="moveSlide('carousel-umkm', -1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="moveSlide('carousel-umkm', 1)">&#10095;</button>
+                    <!-- Titik Navigasi (Dots) -->
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="setSlide('carousel-umkm', 0)"></span>
+                        <span class="dot" onclick="setSlide('carousel-umkm', 1)"></span>
+                        <span class="dot" onclick="setSlide('carousel-umkm', 2)"></span>
+                    </div>
+                </div>
             </div>
             <div class="text-box">
                 <h2 class="serif-font">Feed Instagram @modernn.muse_</h2>
@@ -110,5 +192,58 @@
         <div>© 2026 Portfolio. All rights reserved.</div>
     </footer>
 
+    <!-- =========================================
+         JAVASCRIPT UNTUK FUNGSI GESER (CAROUSEL)
+         ========================================= -->
+    <script>
+        // Objek untuk menyimpan posisi slide saat ini dari setiap carousel
+        const carousels = {
+            'carousel-tmj': 0,
+            'carousel-umkm': 0
+        };
+
+        function updateCarousel(id) {
+            const carousel = document.getElementById(id);
+            const inner = carousel.querySelector('.carousel-inner');
+            const dots = carousel.querySelectorAll('.dot');
+            const currentIndex = carousels[id];
+
+            // Geser gambar
+            inner.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+            // Update warna titik (dots)
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function moveSlide(id, step) {
+            const carousel = document.getElementById(id);
+            const images = carousel.querySelectorAll('.carousel-inner img');
+            const totalImages = images.length;
+
+            carousels[id] += step;
+
+            // Jika melebihi jumlah gambar, kembali ke awal
+            if (carousels[id] >= totalImages) {
+                carousels[id] = 0;
+            } 
+            // Jika kurang dari nol, pergi ke gambar terakhir
+            else if (carousels[id] < 0) {
+                carousels[id] = totalImages - 1;
+            }
+
+            updateCarousel(id);
+        }
+
+        function setSlide(id, index) {
+            carousels[id] = index;
+            updateCarousel(id);
+        }
+    </script>
 </body>
 </html>
