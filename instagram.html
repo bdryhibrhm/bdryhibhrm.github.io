@@ -24,7 +24,7 @@
         .project-row.reverse { flex-direction: row-reverse; }
         
         /* Content boxes */
-        .image-box { flex: 1; }
+        .image-box { flex: 1; overflow: hidden; }
         
         /* =========================================
            CAROUSEL / SLIDER CSS
@@ -35,8 +35,17 @@
             border-radius: 8px;
             overflow: hidden;
             background: #eee;
+            /* Pindahkan cursor kesini agar tetap bisa di-drag di slide manapun */
+            cursor: grab; 
+            /* Cegah layar HP scroll horizontal saat gambar di-swipe */
+            touch-action: pan-y;
+            user-select: none;
         }
         
+        .carousel:active {
+            cursor: grabbing; /* Kursor menggenggam saat ditekan */
+        }
+
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease-in-out;
@@ -44,9 +53,11 @@
         
         .carousel-track img {
             width: 100%;
-            flex-shrink: 0; /* Mencegah gambar menyusut */
+            flex-shrink: 0; 
             object-fit: cover;
             display: block;
+            pointer-events: none; /* Cegah browser menjadikan gambar sbg file yang di-drag */
+            user-select: none;
         }
 
         /* Tombol Navigasi */
@@ -74,10 +85,6 @@
         .text-box { flex: 1; padding: 20px; }
         .text-box h2 { color: #0033a0; font-size: 28px; margin-bottom: 15px; font-weight: normal; }
         .text-box p { color: #9bb0db; font-size: 16px; line-height: 1.6; }
-
-        /* =========================================
-           RESPONSIVE DESIGN (Media Queries)
-           ========================================= */
 
         /* Tablet Layout */
         @media screen and (max-width: 950px) {
@@ -121,20 +128,17 @@
     <div class="main-content">
         <h1 class="page-title serif-font">Instagram Feed Design</h1>
         
-        <!-- Project 1: @tmjpnup.ofc -->
+        <!-- Project 1 -->
         <div class="project-row">
             <div class="image-box">
-                <!-- Struktur Carousel Baru -->
                 <div class="carousel" id="carousel-tmj">
                     <div class="carousel-track">
-                        <!-- Tambahkan gambar-gambar Anda di sini -->
                         <img src="FOTO\ig tmj.png" alt="Feed Instagram tmjpnup 1">
                         <img src="FOTO\ig (1).png" alt="Feed Instagram tmjpnup 2">
                         <img src="FOTO\ig (2).png" alt="Feed Instagram tmjpnup 3">
                         <img src="FOTO\ig (3).png" alt="Feed Instagram tmjpnup 4">
                         <img src="FOTO\ig (4).png" alt="Feed Instagram tmjpnup 5">
                     </div>
-                    <!-- Tombol Geser Kiri / Kanan -->
                     <button class="carousel-btn prev" onclick="moveSlide('carousel-tmj', -1)">&#10094;</button>
                     <button class="carousel-btn next" onclick="moveSlide('carousel-tmj', 1)">&#10095;</button>
                 </div>
@@ -145,19 +149,16 @@
             </div>
         </div>
 
-        <!-- Project 2: @modernn.muse_ -->
+        <!-- Project 2 -->
         <div class="project-row reverse">
             <div class="image-box">
-                <!-- Struktur Carousel Baru -->
                 <div class="carousel" id="carousel-umkm">
                     <div class="carousel-track">
-                        <!-- Tambahkan gambar-gambar Anda di sini -->
                         <img src="FOTO\ig umkm.png" alt="Feed Instagram modernn.muse 1">
                         <img src="FOTO\2.png" alt="Feed Instagram modernn.muse 2">
                         <img src="FOTO\3.png" alt="Feed Instagram modernn.muse 3">
                         <img src="FOTO\4.png" alt="Feed Instagram modernn.muse 4">
                     </div>
-                    <!-- Tombol Geser Kiri / Kanan -->
                     <button class="carousel-btn prev" onclick="moveSlide('carousel-umkm', -1)">&#10094;</button>
                     <button class="carousel-btn next" onclick="moveSlide('carousel-umkm', 1)">&#10095;</button>
                 </div>
@@ -175,44 +176,118 @@
     </footer>
 
     <!-- =========================================
-         JAVASCRIPT UNTUK SLIDER OTOMATIS
+         JAVASCRIPT UNTUK SLIDER OTOMATIS & SWIPE
          ========================================= -->
     <script>
         const carousels = {};
 
         function initCarousel(id) {
-            const track = document.querySelector(`#${id} .carousel-track`);
+            // Pasang event listener di wadah luarnya (.carousel) BUKAN di (.carousel-track)
+            const carouselContainer = document.getElementById(id);
+            const track = carouselContainer.querySelector('.carousel-track');
             const images = track.querySelectorAll('img');
+            
             carousels[id] = {
                 track: track,
                 currentIndex: 0,
                 total: images.length,
-                interval: null
+                interval: null,
+                isDragging: false,
+                startX: 0,
+                dragDistance: 0
             };
+            
             startAutoSlide(id);
+
+            // EVENT LISTENER UNTUK TOUCH (HP) - Dipasang pada Container
+            carouselContainer.addEventListener('touchstart', (e) => dragStart(e, id), {passive: true});
+            carouselContainer.addEventListener('touchmove', (e) => dragAction(e, id), {passive: true});
+            carouselContainer.addEventListener('touchend', () => dragEnd(id));
+
+            // EVENT LISTENER UNTUK MOUSE (DESKTOP) - Dipasang pada Container
+            carouselContainer.addEventListener('mousedown', (e) => dragStart(e, id));
+            carouselContainer.addEventListener('mousemove', (e) => dragAction(e, id));
+            carouselContainer.addEventListener('mouseup', () => dragEnd(id));
+            carouselContainer.addEventListener('mouseleave', () => {
+                if(carousels[id].isDragging) dragEnd(id);
+            });
         }
+
+        // --- FUNGSI DRAG & SWIPE ---
+        
+        function getPositionX(event) {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+
+        function dragStart(event, id) {
+            // Abaikan jika yang di-klik adalah tombol Next/Prev
+            if (event.target.classList.contains('carousel-btn')) return;
+
+            const c = carousels[id];
+            c.isDragging = true;
+            c.startX = getPositionX(event);
+            c.dragDistance = 0;
+
+            stopAutoSlide(id); 
+            c.track.style.transition = 'none'; 
+        }
+
+        function dragAction(event, id) {
+            const c = carousels[id];
+            if (!c.isDragging) return;
+            
+            const currentX = getPositionX(event);
+            c.dragDistance = currentX - c.startX;
+            
+            // Geser gambar secara live 
+            c.track.style.transform = `translateX(calc(-${c.currentIndex * 100}% + ${c.dragDistance}px))`;
+        }
+
+        function dragEnd(id) {
+            const c = carousels[id];
+            if (!c.isDragging) return;
+            
+            c.isDragging = false;
+            c.track.style.transition = 'transform 0.5s ease-in-out';
+            
+            // Pindah slide jika geseran melebihi 50 pixel
+            const swipeThreshold = 50; 
+            
+            if (c.dragDistance < -swipeThreshold) {
+                // Geser ke kiri (Next)
+                c.currentIndex++;
+                if (c.currentIndex >= c.total) c.currentIndex = 0; 
+            } else if (c.dragDistance > swipeThreshold) {
+                // Geser ke kanan (Prev)
+                c.currentIndex--;
+                if (c.currentIndex < 0) c.currentIndex = c.total - 1; 
+            }
+            
+            // Paskan posisi ke tengah dengan rapi
+            c.track.style.transform = `translateX(-${c.currentIndex * 100}%)`;
+            startAutoSlide(id); 
+        }
+
+        // --- FUNGSI TOMBOL DAN AUTOSLIDE ---
 
         function moveSlide(id, direction) {
             const c = carousels[id];
             c.currentIndex += direction;
             
-            // Logika agar berputar terus menerus (looping)
             if (c.currentIndex < 0) {
                 c.currentIndex = c.total - 1;
             } else if (c.currentIndex >= c.total) {
                 c.currentIndex = 0;
             }
             
-            // Menggeser gambar berdasarkan index
+            c.track.style.transition = 'transform 0.5s ease-in-out';
             c.track.style.transform = `translateX(-${c.currentIndex * 100}%)`;
             
-            // Reset timer agar tidak bentrok jika ditekan manual
             stopAutoSlide(id);
             startAutoSlide(id);
         }
 
         function startAutoSlide(id) {
-            // Bergeser otomatis setiap 3 detik (3000 ms)
             carousels[id].interval = setInterval(() => {
                 moveSlide(id, 1);
             }, 3000); 
@@ -222,12 +297,11 @@
             clearInterval(carousels[id].interval);
         }
 
-        // Menjalankan carousel setelah halaman dimuat
+        // Eksekusi kode setelah HTML selesai dimuat
         document.addEventListener("DOMContentLoaded", () => {
             initCarousel('carousel-tmj');
             initCarousel('carousel-umkm');
         });
     </script>
-
 </body>
 </html>
