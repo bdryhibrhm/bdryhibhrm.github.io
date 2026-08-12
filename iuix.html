@@ -23,24 +23,30 @@
         .project-row { display: flex; gap: 50px; margin-bottom: 80px; align-items: center; }
         
         /* Content boxes */
-        .image-box { flex: 1.2; overflow: hidden; }
+        /* Flexbox ditambahkan di sini agar carousel selalu posisinya di tengah layar */
+        .image-box { flex: 1.2; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
         .text-box { flex: 1; padding: 20px; }
         .text-box h2 { color: #b0c4de; font-size: 32px; margin-bottom: 20px; font-weight: normal; }
         .text-box p { color: #0033a0; font-size: 16px; line-height: 1.6; font-weight: 500; }
 
         /* =========================================
-           CAROUSEL / SLIDER CSS (Dengan Fitur Swipe)
+           CAROUSEL / SLIDER CSS (Sesuai Ukuran Gambar)
            ========================================= */
         .carousel {
             position: relative;
             width: 100%;
             border-radius: 8px;
             overflow: hidden;
-            background: transparent; /* Background tipis agar mockup terlihat menonjol */
+            background: transparent; /* Canvas dihilangkan sepenuhnya */
             cursor: grab; 
             touch-action: pan-y;
             user-select: none;
         }
+
+        /* Kelas Pembatas Lebar (Agar Tombol Nempel di Gambar) */
+        .carousel.mockup-hp { max-width: 320px; /* Ukuran pas untuk portrait HP */ }
+        .carousel.mockup-web { max-width: 650px; /* Ukuran pas untuk landscape desktop */ }
         
         .carousel:active {
             cursor: grabbing;
@@ -49,19 +55,17 @@
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            align-items: center; /* Memastikan mockup berada di tengah secara vertikal */
+            align-items: center; 
         }
         
         .carousel-track img {
             width: 100%;
             height: auto;
-            max-height: 500px; /* Batasan tinggi agar tidak terlalu besar di desktop */
             flex-shrink: 0; 
-            object-fit: contain; /* Menggunakan contain agar mockup UI/UX tidak terpotong */
+            object-fit: contain; 
             display: block;
             pointer-events: none;
             user-select: none;
-            padding: 10px; /* Sedikit ruang bernapas untuk mockup */
         }
 
         /* Tombol Navigasi */
@@ -137,7 +141,8 @@
                 <p>Mendesain antarmuka aplikasi dan website monitoring yang mempermudah identifikasi triase pasien, sehingga tenaga medis di IGD dapat bekerja lebih cepat, terorganisir, dan siap dalam menangani pasien sesuai tingkat prioritas.</p>
             </div>
             <div class="image-box">
-                <div class="carousel" id="carousel-trauma">
+                <!-- Tambahan class 'mockup-hp' agar lebar kotak memeluk gambar portrait -->
+                <div class="carousel mockup-hp" id="carousel-trauma">
                     <div class="carousel-track">
                         <!-- Tambahkan gambar-gambar slide Trauma Center di sini -->
                         <img src="FOTO\Trauma Center.png" alt="Mockup UI/UX Trauma Center 1">
@@ -155,7 +160,8 @@
         <!-- Project 2: Olasehat (Gambar Kiri, Teks Kanan) -->
         <div class="project-row">
             <div class="image-box">
-                <div class="carousel" id="carousel-olasehat">
+                <!-- Jika Olasehat adalah aplikasi HP, biarkan 'mockup-hp'. Jika layar Web/Laptop, ganti jadi 'mockup-web' -->
+                <div class="carousel mockup-hp" id="carousel-olasehat">
                     <div class="carousel-track">
                         <!-- Tambahkan gambar-gambar slide Olasehat di sini -->
                         <img src="FOTO\olasehat.png" alt="Mockup UI/UX Olasehat 1">
@@ -202,12 +208,10 @@
             
             startAutoSlide(id);
 
-            // EVENT LISTENER UNTUK TOUCH (HP)
             carouselContainer.addEventListener('touchstart', (e) => dragStart(e, id), {passive: true});
             carouselContainer.addEventListener('touchmove', (e) => dragAction(e, id), {passive: true});
             carouselContainer.addEventListener('touchend', () => dragEnd(id));
 
-            // EVENT LISTENER UNTUK MOUSE (DESKTOP)
             carouselContainer.addEventListener('mousedown', (e) => dragStart(e, id));
             carouselContainer.addEventListener('mousemove', (e) => dragAction(e, id));
             carouselContainer.addEventListener('mouseup', () => dragEnd(id));
@@ -290,7 +294,6 @@
             clearInterval(carousels[id].interval);
         }
 
-        // Eksekusi kode setelah HTML selesai dimuat
         document.addEventListener("DOMContentLoaded", () => {
             initCarousel('carousel-trauma');
             initCarousel('carousel-olasehat');
