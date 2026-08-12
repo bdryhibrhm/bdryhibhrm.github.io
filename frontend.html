@@ -25,28 +25,84 @@
         .description { color: #9bb0db; font-size: 18px; line-height: 1.6; }
         
         /* Right Image Section */
-        .image-section { flex: 1.2; }
-        .portfolio-img { width: 100%; height: auto; object-fit: contain; background-color: #f5f7ff; padding: 20px; border-radius: 8px; }
+        /* Ditambahkan Flexbox agar carousel berada persis di tengah */
+        .image-section { flex: 1.2; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+
+        /* =========================================
+           CAROUSEL / SLIDER CSS (Tanpa Canvas)
+           ========================================= */
+        .carousel {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: transparent; /* Canvas dihilangkan */
+            cursor: grab; 
+            touch-action: pan-y;
+            user-select: none;
+        }
+
+        /* Class khusus untuk desain Web/Laptop agar proporsinya pas */
+        .carousel.mockup-web { max-width: 700px; }
+        
+        .carousel:active {
+            cursor: grabbing;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            align-items: center; 
+        }
+        
+        .carousel-track img {
+            width: 100%;
+            height: auto;
+            flex-shrink: 0; 
+            object-fit: contain; 
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            border-radius: 8px; /* Memberikan efek lengkung sedikit pada gambar */
+        }
+
+        /* Tombol Navigasi */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 14px;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        
+        .carousel-btn:hover { background-color: rgba(0, 0, 0, 0.6); }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
 
         /* =========================================
            RESPONSIVE DESIGN (Media Queries)
            ========================================= */
 
-        /* Tablet Layout (Lebar layar maksimal 950px) */
         @media screen and (max-width: 950px) {
             .header, .footer { padding: 25px 40px; }
             .main-content { 
                 padding: 50px 40px; 
-                flex-direction: column; /* Mengubah susunan teks dan gambar menjadi atas-bawah */
-                text-align: center; /* Membuat teks berada di tengah */
+                flex-direction: column; 
+                text-align: center; 
                 gap: 40px;
             }
             .main-title { font-size: 50px; margin-bottom: 20px; }
             .sub-title { font-size: 26px; margin-bottom: 20px; }
-            .image-section { width: 100%; } /* Memastikan gambar menyesuaikan lebar layar */
+            .image-section { width: 100%; } 
         }
 
-        /* Mobile Layout (Lebar layar maksimal 600px) */
         @media screen and (max-width: 600px) {
             .header { flex-direction: column; gap: 15px; padding: 20px; }
             .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
@@ -54,11 +110,9 @@
             
             .main-content { padding: 40px 20px; gap: 30px; }
             
-            .main-title { font-size: 40px; } /* Mengecilkan ukuran teks judul untuk HP */
+            .main-title { font-size: 40px; } 
             .sub-title { font-size: 22px; }
-            .description { font-size: 15px; text-align: justify; /* Supaya teks deskripsi rapi di HP */ }
-            
-            .portfolio-img { padding: 10px; } /* Kurangi jarak padding di dalam box gambar */
+            .description { font-size: 15px; text-align: justify; }
 
             .footer { flex-direction: column; text-align: center; gap: 10px; padding: 30px 20px; }
         }
@@ -83,8 +137,19 @@
         </div>
         
         <div class="image-section">
-            <!-- GANTI src DENGAN GAMBAR DESAIN WEBSITE/MOCKUP LAPTOP ANDA -->
-            <img src="FOTO\tmj.png" alt="Mockup Website" class="portfolio-img">
+            <!-- Menambahkan class mockup-web -->
+            <div class="carousel mockup-web" id="carousel-frontend">
+                <div class="carousel-track">
+                    <!-- Tambahkan variasi gambar mockup website Anda di sini -->
+                    <img src="FOTO\tmj.png" alt="Mockup Website TMJ 1">
+                    <img src="FOTO\web (1).png" alt="Mockup Website TMJ 2">
+                    <img src="FOTO\web (2).png" alt="Mockup Website TMJ 3">
+                    <img src="FOTO\web (3).png" alt="Mockup Website TMJ 4">
+                    <img src="FOTO\web (4).png" alt="Mockup Website TMJ 5">
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide('carousel-frontend', -1)">&#10094;</button>
+                <button class="carousel-btn next" onclick="moveSlide('carousel-frontend', 1)">&#10095;</button>
+            </div>
         </div>
     </div>
 
@@ -93,5 +158,118 @@
         <div>© 2026 Portfolio. All rights reserved.</div>
     </footer>
 
+    <!-- =========================================
+         JAVASCRIPT UNTUK SLIDER OTOMATIS & SWIPE
+         ========================================= -->
+    <script>
+        const carousels = {};
+
+        function initCarousel(id) {
+            const carouselContainer = document.getElementById(id);
+            const track = carouselContainer.querySelector('.carousel-track');
+            const images = track.querySelectorAll('img');
+            
+            carousels[id] = {
+                track: track,
+                currentIndex: 0,
+                total: images.length,
+                interval: null,
+                isDragging: false,
+                startX: 0,
+                dragDistance: 0
+            };
+            
+            startAutoSlide(id);
+
+            carouselContainer.addEventListener('touchstart', (e) => dragStart(e, id), {passive: true});
+            carouselContainer.addEventListener('touchmove', (e) => dragAction(e, id), {passive: true});
+            carouselContainer.addEventListener('touchend', () => dragEnd(id));
+
+            carouselContainer.addEventListener('mousedown', (e) => dragStart(e, id));
+            carouselContainer.addEventListener('mousemove', (e) => dragAction(e, id));
+            carouselContainer.addEventListener('mouseup', () => dragEnd(id));
+            carouselContainer.addEventListener('mouseleave', () => {
+                if(carousels[id].isDragging) dragEnd(id);
+            });
+        }
+        
+        function getPositionX(event) {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+
+        function dragStart(event, id) {
+            if (event.target.classList.contains('carousel-btn')) return;
+
+            const c = carousels[id];
+            c.isDragging = true;
+            c.startX = getPositionX(event);
+            c.dragDistance = 0;
+
+            stopAutoSlide(id); 
+            c.track.style.transition = 'none'; 
+        }
+
+        function dragAction(event, id) {
+            const c = carousels[id];
+            if (!c.isDragging) return;
+            
+            const currentX = getPositionX(event);
+            c.dragDistance = currentX - c.startX;
+            
+            c.track.style.transform = `translateX(calc(-${c.currentIndex * 100}% + ${c.dragDistance}px))`;
+        }
+
+        function dragEnd(id) {
+            const c = carousels[id];
+            if (!c.isDragging) return;
+            
+            c.isDragging = false;
+            c.track.style.transition = 'transform 0.5s ease-in-out';
+            
+            const swipeThreshold = 50; 
+            
+            if (c.dragDistance < -swipeThreshold) {
+                c.currentIndex++;
+                if (c.currentIndex >= c.total) c.currentIndex = 0; 
+            } else if (c.dragDistance > swipeThreshold) {
+                c.currentIndex--;
+                if (c.currentIndex < 0) c.currentIndex = c.total - 1; 
+            }
+            
+            c.track.style.transform = `translateX(-${c.currentIndex * 100}%)`;
+            startAutoSlide(id); 
+        }
+
+        function moveSlide(id, direction) {
+            const c = carousels[id];
+            c.currentIndex += direction;
+            
+            if (c.currentIndex < 0) {
+                c.currentIndex = c.total - 1;
+            } else if (c.currentIndex >= c.total) {
+                c.currentIndex = 0;
+            }
+            
+            c.track.style.transition = 'transform 0.5s ease-in-out';
+            c.track.style.transform = `translateX(-${c.currentIndex * 100}%)`;
+            
+            stopAutoSlide(id);
+            startAutoSlide(id);
+        }
+
+        function startAutoSlide(id) {
+            carousels[id].interval = setInterval(() => {
+                moveSlide(id, 1);
+            }, 3000); 
+        }
+
+        function stopAutoSlide(id) {
+            clearInterval(carousels[id].interval);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initCarousel('carousel-frontend');
+        });
+    </script>
 </body>
 </html>
